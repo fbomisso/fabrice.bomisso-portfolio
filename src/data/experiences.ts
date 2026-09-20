@@ -9,6 +9,7 @@ export const experiences: Experience[] = [
     tasks: [
       'Traitement des données : collecte, préparation, nettoyage et structuration de plus de 60 000 lignes de données issues de secteurs variés.',
       'Développement de la solution : contribution à l\'analyse et à la structuration des besoins, à la préparation et à l\'intégration des données, ainsi qu\'aux tests et à la vérification des résultats de l\'application web.',
+      'Intégration de chatbot : contribution à l\'intégration d\'un chatbot développé avec Rasa dans la solution web.',
       'Suivi et reporting : production de reportings pour suivre les activités et les résultats, en collaboration avec l\'équipe projet.',
     ],
     technologies: ['Python', 'Pandas', 'Data Analysis', 'Data Visualization'],
