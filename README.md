@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fabrice BOMISSO
 
-## Getting Started
+## Data Analyst | Power BI · Excel · Python
 
-First, run the development server:
+Portfolio professionnel présentant mon parcours, mes compétences, mes certifications et mes projets dans le domaine de la Data.
+
+## Profil
+
+Data Analyst orienté Business Intelligence et Data Visualization, avec un intérêt pour l’analyse, la transformation et la valorisation des données.
+
+Mon parcours combine l’analyse de données, la Business Intelligence, le développement de solutions analytiques et le Machine Learning.
+
+## Portfolio
+
+[Voir mon portfolio](https://fabrice-bomisso-theta.vercel.app/)
+
+## Domaines
+
+* Power BI
+* Machine Learning
+* Python
+* SQL
+
+## Technologies
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Power BI
+* Excel
+* Python
+* SQL
+* Machine Learning
+
+## Structure du projet
+
+```text
+Portfolio/
+│
+├── public/
+│   └── projets/
+│
+├── src/
+│   ├── app/
+│   │   └── projets/
+│   │
+│   ├── components/
+│   │   └── ui/
+│   │
+│   ├── data/
+│   │   ├── power-bi/
+│   │   ├── machine-learning/
+│   │   ├── python/
+│   │   └── sql/
+│   │
+│   └── types/
+│
+├── package.json
+├── next.config.ts
+├── tsconfig.json
+└── README.md
+```
+
+## Installation
+
+```bash
+npm install
+```
+
+## Développement
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Le portfolio est ensuite accessible à l'adresse :
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Déploiement
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Le portfolio est déployé avec Vercel.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Repository des projets
 
-## Deploy on Vercel
+Les projets présentés dans le portfolio sont disponibles dans mon repository dédié :
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[fbomisso/fabrice.bomisso-projects](https://github.com/fbomisso/fabrice.bomisso-projects)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Liens professionnels
+
+* [Portfolio](https://fabrice-bomisso-theta.vercel.app/)
+* [GitHub](https://github.com/fbomisso)
+* [LinkedIn](https://www.linkedin.com/in/fabrice-bomisso/)
+
+## Auteur
+
+**Fabrice BOMISSO**
+
+Data Analyst | Power BI · Excel · Python
