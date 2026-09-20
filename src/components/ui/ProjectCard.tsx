@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Project } from "@/types";
 
 interface ProjectCardProps {
@@ -46,8 +47,21 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
 
-        <div className="mt-8">
-          <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700">
+        <div className="mt-8 flex flex-wrap gap-3">
+          {project.slug && (
+            <Link
+              href={`/projets/${project.slug}`}
+              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700"
+            >
+              Voir les projets
+            </Link>
+          )}
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 px-5 py-2.5 font-medium text-slate-700 dark:text-slate-200 transition hover:bg-slate-50 dark:hover:bg-slate-700"
+          >
             Voir sur GitHub
           </a>
         </div>

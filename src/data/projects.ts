@@ -1,9 +1,10 @@
-﻿import type { Project } from '@/types';
+import type { Project } from '@/types';
 
 export const projects: Project[] = [
   {
     id: 1,
     title: 'Machine Learning',
+    slug: 'machine-learning',
     category: 'Data Science',
     date: '2026',
     description:
@@ -15,6 +16,7 @@ export const projects: Project[] = [
   {
     id: 2,
     title: 'Power BI',
+    slug: 'power-bi',
     category: 'Business Intelligence',
     date: '2026',
     description:
@@ -26,6 +28,7 @@ export const projects: Project[] = [
   {
     id: 3,
     title: 'Python',
+    slug: 'python',
     category: 'Data Analysis',
     date: '2026',
     description:
@@ -37,6 +40,7 @@ export const projects: Project[] = [
   {
     id: 4,
     title: 'SQL',
+    slug: 'sql',
     category: 'Data & Bases de données',
     date: '2026',
     description:

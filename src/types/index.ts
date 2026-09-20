@@ -40,6 +40,9 @@ export type Certification = {
   image?: string;
 };
 
+export type DomainSlug = "power-bi" | "python" | "sql" | "machine-learning";
+
+// Carte de domaine (Power BI, Python, SQL, Machine Learning)
 export type Project = {
   id: number;
   title: string;
@@ -49,6 +52,33 @@ export type Project = {
   technologies: string[];
   image?: string;
   github: string;
+  slug?: DomainSlug; // NOUVEAU : sert à construire /projets/<slug>/
+};
+
+// NOUVEAU : un projet individuel à l'intérieur d'un domaine
+export type ProjectKpi = {
+  value: string; // ex. "38 578"
+  label: string; // ex. "prêts analysés"
+};
+
+export type ProjectScreenshot = {
+  src: string; // ex. "/projets/power-bi/mon-projet/01-dashboard.png"
+  alt: string;
+};
+
+export type DomainProject = {
+  slug: string; // ex. "risque-credit-bancaire"
+  domain: DomainSlug;
+  title: string;
+  objective: string; // une phrase, affichée sur la vue d'ensemble du domaine
+  context: string; // contexte / problématique
+  data: string; // données utilisées
+  technologies: string[];
+  kpis: ProjectKpi[];
+  results: string[]; // résultats et insights importants
+  approach: string[]; // étapes du travail, dans l'ordre
+  screenshots: ProjectScreenshot[];
+  github: string; // lien vers le sous-dossier du projet
 };
 
 export type CaseStudy = {
