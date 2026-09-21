@@ -1,0 +1,500 @@
+/* ==========================================================================
+   AvatarMorph : boucle de 14 s
+     0 - 40 %   phase Eau & Environnement
+    40 - 52 %   balayage haut -> bas : la photo se « convertit » en Data
+    52 - 90 %   phase Data
+    90 - 100 %  balayage bas -> haut : retour à l'Eau
+   Les trois animations de balayage (scan, water, data) sont linéaires et
+   partagent les mêmes bornes : la limite visuelle suit exactement la ligne.
+   L'état de base (sans animation) est l'état final « Data ».
+   ========================================================================== */
+
+.root {
+  --size: 160px;
+  --t: 14s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.stage {
+  position: relative;
+  width: 176px;
+  height: 176px;
+  margin: 28px 0 30px; /* réserve la place des orbites */
+}
+
+/* ---------- Anneaux ------------------------------------------------------ */
+
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px));
+}
+
+.ringWater {
+  background: conic-gradient(from 0deg, #22d3ee, #0ea5e9, #14b8a6, #38bdf8, #22d3ee);
+  opacity: 0;
+  animation: spin 7s linear infinite, showWater var(--t) linear infinite;
+}
+
+.ringData {
+  background: conic-gradient(
+    from 0deg,
+    var(--accent-300),
+    var(--accent-600),
+    var(--accent-400),
+    var(--accent-700),
+    var(--accent-300)
+  );
+  animation: spin 7s linear infinite reverse, showData var(--t) linear infinite;
+}
+
+/* ---------- Cadre photo -------------------------------------------------- */
+
+.frame {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0); /* évite le débordement du clip sous Safari */
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.25);
+}
+
+.frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  pointer-events: none;
+}
+
+:global(.dark) .frame::after {
+  border-color: #1e293b;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Phase Eau & Environnement ----------------------------------- */
+
+.water {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: inset(100% 0 0 0);
+  animation: waterClip var(--t) linear infinite;
+}
+
+.waterTint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(56 189 248 / 0.1) 0%,
+    rgb(6 182 212 / 0.28) 55%,
+    rgb(13 148 136 / 0.55) 100%
+  );
+}
+
+.wave {
+  position: absolute;
+  left: 0;
+  width: calc(100% + 80px);
+  background-repeat: repeat-x;
+  background-size: 80px 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' preserveAspectRatio='none'%3E%3Cpath d='M0 20Q20 0 40 20T80 20V40H0Z' fill='%23ffffff' fill-opacity='.42'/%3E%3C/svg%3E");
+}
+
+.waveBack {
+  bottom: 8px;
+  height: 46px;
+  opacity: 0.7;
+  animation: waveRight 6s linear infinite;
+}
+
+.waveFront {
+  bottom: 0;
+  height: 40px;
+  animation: waveLeft 4.5s linear infinite;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid rgb(255 255 255 / 0.85);
+  background: rgb(255 255 255 / 0.25);
+  opacity: 0;
+  animation: rise 3.6s ease-in infinite;
+  animation-delay: var(--d, 0s);
+}
+
+/* ---------- Phase Data --------------------------------------------------- */
+
+.data {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  clip-path: inset(0 0 0 0);
+  animation: dataClip var(--t) linear infinite;
+}
+
+.dataTint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent-500) 10%, transparent) 0%,
+    color-mix(in srgb, var(--accent-700) 46%, transparent) 100%
+  );
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--accent-200) 40%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--accent-200) 40%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 15%, #000 95%);
+  mask-image: linear-gradient(to bottom, transparent 15%, #000 95%);
+  animation: gridDrift 5s linear infinite;
+}
+
+.bars {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  bottom: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.bar {
+  width: 12px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(to top, var(--accent-300), #fff);
+  opacity: 0.92;
+  transform-origin: bottom;
+  animation: barPulse 1.8s ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+}
+
+.trend {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.trend polyline {
+  stroke: #fff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 3px rgb(255 255 255 / 0.8));
+  animation: drawLine 3.6s ease-in-out infinite;
+}
+
+/* ---------- Ligne de balayage ------------------------------------------- */
+
+.scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  height: 2px;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, #fff 20%, #fff 80%, transparent);
+  box-shadow:
+    0 0 10px 2px color-mix(in srgb, var(--accent-300) 85%, transparent),
+    0 0 22px 6px rgb(34 211 238 / 0.35);
+  animation: scan var(--t) linear infinite;
+}
+
+/* ---------- Orbites ------------------------------------------------------ */
+
+.orbit {
+  position: absolute;
+  inset: -28px;
+  pointer-events: none;
+  animation: spin var(--orb) linear infinite;
+}
+
+.orbitWater {
+  --orb: 26s;
+  opacity: 0;
+  animation: spin var(--orb) linear infinite, showWater var(--t) linear infinite;
+}
+
+.orbitData {
+  --orb: 20s;
+  animation: spin var(--orb) linear infinite, showData var(--t) linear infinite;
+}
+
+.orbitItem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  transform: rotate(var(--a)) translateY(-104px);
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgb(148 163 184 / 0.35);
+  box-shadow: 0 2px 8px rgb(15 23 42 / 0.18);
+  /* contre-rotation : le badge reste à l'endroit pendant l'orbite */
+  transform: rotate(calc(var(--a) * -1));
+  animation: counter var(--orb) linear infinite;
+}
+
+.badgeImg {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.badgeWater svg {
+  width: 14px;
+  height: 14px;
+  stroke: #0891b2;
+}
+
+/* les badges technos gardent un fond blanc (logos de marque) ; seuls les
+   badges « eau » suivent le mode sombre */
+:global(.dark) .badgeWater {
+  background: #1e293b;
+  border-color: rgb(71 85 105 / 0.7);
+}
+
+:global(.dark) .badgeWater svg {
+  stroke: #22d3ee;
+}
+
+/* ---------- Légende ------------------------------------------------------ */
+
+.caption {
+  display: grid;
+  max-width: 100%;
+  padding: 6px 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+}
+
+.caption > span {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.capWater {
+  color: #0e7490;
+  opacity: 0;
+  animation: capWater var(--t) linear infinite;
+}
+
+.capData {
+  color: var(--accent-700);
+  animation: capData var(--t) linear infinite;
+}
+
+:global(.dark) .capWater {
+  color: #67e8f9;
+}
+
+:global(.dark) .capData {
+  color: var(--accent-300);
+}
+
+.dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dotWater {
+  background: #06b6d4;
+}
+
+.dotData {
+  background: var(--accent-500);
+}
+
+/* ---------- Keyframes ---------------------------------------------------- */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counter {
+  from {
+    transform: rotate(calc(var(--a) * -1));
+  }
+  to {
+    transform: rotate(calc(var(--a) * -1 - 360deg));
+  }
+}
+
+@keyframes showWater {
+  0%, 40% { opacity: 1; }
+  52%, 90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes showData {
+  0%, 40% { opacity: 0; }
+  52%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Les deux libellés ne se chevauchent jamais : l'un disparaît avant que
+   l'autre n'apparaisse (fenêtres 38-52 % et 88-100 %). */
+@keyframes capWater {
+  0%, 36% { opacity: 1; transform: translateY(0); }
+  44% { opacity: 0; transform: translateY(-5px); }
+  92% { opacity: 0; transform: translateY(5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes capData {
+  0%, 44% { opacity: 0; transform: translateY(5px); }
+  52%, 84% { opacity: 1; transform: translateY(0); }
+  91%, 100% { opacity: 0; transform: translateY(-5px); }
+}
+
+/* Le clip de la phase Data grandit de haut en bas (bas = 100 % -> 0 %),
+   celui de la phase Eau se réduit de haut en bas (haut = 0 % -> 100 %). */
+@keyframes dataClip {
+  0%, 40% { clip-path: inset(0 0 100% 0); }
+  52%, 90% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+
+@keyframes waterClip {
+  0%, 40% { clip-path: inset(0 0 0 0); }
+  52%, 90% { clip-path: inset(100% 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes scan {
+  0%, 39.9% { transform: translateY(0); opacity: 0; }
+  40% { transform: translateY(0); opacity: 1; }
+  52% { transform: translateY(var(--size)); opacity: 1; }
+  52.1%, 89.9% { transform: translateY(var(--size)); opacity: 0; }
+  90% { transform: translateY(var(--size)); opacity: 1; }
+  99.5% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@keyframes waveLeft {
+  to { transform: translateX(-80px); }
+}
+
+@keyframes waveRight {
+  from { transform: translateX(-80px); }
+  to { transform: translateX(0); }
+}
+
+@keyframes rise {
+  0% { transform: translateY(0) scale(0.7); opacity: 0; }
+  15% { opacity: 0.9; }
+  100% { transform: translateY(-70px) scale(1.15); opacity: 0; }
+}
+
+@keyframes gridDrift {
+  to { background-position: 16px 16px; }
+}
+
+@keyframes barPulse {
+  from { transform: scaleY(0.55); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes drawLine {
+  0% { stroke-dashoffset: 1; }
+  55%, 100% { stroke-dashoffset: 0; }
+}
+
+/* ---------- Accessibilité : mouvement réduit ---------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .root *,
+  .root *::before,
+  .root *::after {
+    animation: none !important;
+  }
+
+  .water {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .data {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .ringWater,
+  .orbitWater,
+  .capWater,
+  .scan {
+    opacity: 0;
+  }
+
+  .ringData,
+  .orbitData,
+  .capData {
+    opacity: 1;
+  }
+
+  .capData {
+    transform: none;
+  }
+}
+
+/* ---------- Badge Machine Learning (texte ML) ---------------------------- */
+
+.badgeMl {
+  color: var(--accent-700);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
