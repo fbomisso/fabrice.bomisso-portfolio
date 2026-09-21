@@ -1,8 +1,26 @@
 ﻿import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 export async function POST(request: Request) {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    return Response.json(
+      { error: "Service d'envoi non configuré." },
+      { status: 500 }
+    );
+  }
+
+  const resend = new Resend(apiKey);
+
   try {
     const { name, email, message } = await request.json();
 
@@ -13,21 +31,25 @@ export async function POST(request: Request) {
       );
     }
 
+    const safeName = escapeHtml(String(name));
+    const safeEmail = escapeHtml(String(email));
+    const safeMessage = escapeHtml(String(message)).replace(/\n/g, "<br />");
+
     const { data, error } = await resend.emails.send({
       from: "Portfolio Fabrice BOMISSO <onboarding@resend.dev>",
       to: ["fabricebtibo@gmail.com"],
-      replyTo: email,
-      subject: `Nouveau message de ${name}`,
+      replyTo: String(email),
+      subject: `Nouveau message de ${String(name)}`,
       html: `
         <h2>Nouveau message depuis votre portfolio</h2>
 
-        <p><strong>Nom :</strong> ${name}</p>
+        <p><strong>Nom :</strong> ${safeName}</p>
 
-        <p><strong>Email :</strong> ${email}</p>
+        <p><strong>Email :</strong> ${safeEmail}</p>
 
         <p><strong>Message :</strong></p>
 
-        <p>${message}</p>
+        <p>${safeMessage}</p>
       `,
     });
 
