@@ -1,4 +1,4 @@
-import Image from "next/image";
+import AvatarMorph from "@/components/ui/AvatarMorph";
 import { profile } from "@/data/profile";
 
 export default function Hero() {
@@ -9,17 +9,8 @@ export default function Hero() {
     >
       <div className="mx-auto max-w-7xl px-6 text-center">
 
-        {/* Photo de profil */}
-        <div className="mx-auto mb-8 h-40 w-40 overflow-hidden rounded-full border-4 border-white dark:border-slate-800 shadow-lg">
-          <Image
-            src={profile.photo}
-            alt={`Photo de ${profile.name}`}
-            width={160}
-            height={160}
-            priority
-            className="h-full w-full object-cover"
-          />
-        </div>
+        {/* Photo de profil animée : Eau et Environnement vers Data */}
+        <AvatarMorph src={profile.photo} alt={`Photo de ${profile.name}`} />
 
         {/* Nom */}
         <h1 className="mb-4 text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white md:text-6xl">
