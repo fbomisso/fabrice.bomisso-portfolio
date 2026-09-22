@@ -8,6 +8,7 @@ import { analyseCoupeDuMondeFifa2026 } from './analyse-coupe-du-monde-fifa-2026'
 import { pilotageReseauDistributionMultimagasin } from './pilotage-reseau-distribution-multimagasin';
 import { pilotageRisqueCreditBancaire } from './pilotage-risque-credit-bancaire';
 import { soinsDeSante } from './soins-de-sante';
+import { globalSuperstore } from './global-superstore';
 
 export const powerBiProjects = [
   pilotageRisqueCreditBancaire,
@@ -20,4 +21,6 @@ export const powerBiProjects = [
   assuranceAutomobileDashboard,
   gapService,
   soinsDeSante,
+  globalSuperstore,
 ];
+
