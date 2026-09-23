@@ -109,8 +109,6 @@ export default async function ProjectPage({ params }: PageProps) {
               <a
                 key={index}
                 href={shot.src}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="block overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700"
               >
                 <img
