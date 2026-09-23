@@ -23,13 +23,19 @@ export type Experience = {
   technologies?: string[];
 };
 
+export type FormationDomain = {
+  title: string;
+  icon: string;
+  courses: string[];
+};
+
 export type Formation = {
   id: number;
   school: string;
   degree: string;
   period: string;
   location?: string;
-  description?: string[];
+  domains?: FormationDomain[];
 };
 
 export type Certification = {

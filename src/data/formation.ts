@@ -1,37 +1,158 @@
-import type { Formation } from "@/types";
+﻿import type { Formation } from "@/types";
 
 export const formation: Formation[] = [
   {
     id: 1,
     school: "Université Jean Lorougnon Guédé",
-    degree: "Master en Génie de l'Eau et de l'Environnement",
-    period: "2023",
+    degree: "Licence en Génie de l'Eau et de l'Environnement",
+    period: "2020",
     location: "Daloa, Côte d'Ivoire",
-    description: [
-      "🌊 Eau & hydrologie : Hydrologie avancée, gestion intégrée des ressources en eau, bassins versants, eaux de surface et souterraines, modélisation hydrologique",
-      "🚰 Eau potable & hydraulique : Production d'eau potable, qualité de l'eau, traitement, réseaux AEP, hydraulique avancée, ouvrages hydrauliques",
-      "🚽 Assainissement : Assainissement urbain et rural, boues de vidange, eaux usées, eaux pluviales, effluents, réseaux d'assainissement",
-      "♻️ Déchets & environnement : Gestion des déchets, valorisation, pollution des sols et des eaux, gestion environnementale, développement durable",
-      "🗺️ SIG, télédétection & analyse spatiale : SIG, télédétection, cartographie thématique, analyse spatiale, bassins versants, ressources en eau",
-      "📊 Statistiques, données & modélisation : Statistiques appliquées, analyse de données hydrologiques, modélisation mathématique, informatique scientifique, visualisation des données",
-      "🧪 Évaluation environnementale & QHSE : Évaluation environnementale, études d'impact, audit environnemental, analyse des risques, QHSE, management environnemental",
-      "🔬 Recherche & management : Méthodologie de recherche, analyse des résultats, gestion de projets, management, entrepreneuriat, droit de l'environnement",
+    domains: [
+      {
+        title: "Eau & Hydrologie",
+        icon: "droplets",
+        courses: [
+          "Mécanique des Fluides Appliquées",
+          "Caractérisation des Eaux",
+          "Hydrologie Statistique",
+        ],
+      },
+      {
+        title: "Eau potable & Hydraulique",
+        icon: "waves",
+        courses: [
+          "Hydraulique Générale",
+          "Hydraulique Humaine",
+          "Irrigation et Drainage",
+        ],
+      },
+      {
+        title: "Assainissement & Déchets",
+        icon: "recycle",
+        courses: [
+          "Assainissement Autonome et Gestion des Déchets Solides",
+        ],
+      },
+      {
+        title: "Environnement & Qualité",
+        icon: "leaf",
+        courses: [
+          "Pollution de l’Eau et l’Air",
+          "Management de l’Environnement et Management de la Qualité",
+        ],
+      },
+      {
+        title: "SIG, Télédétection & Cartographie",
+        icon: "map",
+        courses: [
+          "Informatique, Télédétection et SIG",
+          "Topographie et Dessin",
+        ],
+      },
+      {
+        title: "Statistiques & Données",
+        icon: "chart",
+        courses: [
+          "Analyse Numérique",
+        ],
+      },
+      {
+        title: "Santé, Sécurité & QHSE",
+        icon: "shield",
+        courses: [
+          "Secourisme",
+        ],
+      },
+      {
+        title: "Recherche, Management & Communication",
+        icon: "book",
+        courses: [
+          "Anglais",
+          "Droit et Communication",
+          "Stage de Fin d’Étude",
+        ],
+      },
     ],
   },
   {
     id: 2,
     school: "Université Jean Lorougnon Guédé",
-    degree: "Licence en Génie de l'Eau et de l'Environnement",
-    period: "2020",
+    degree: "Master en Génie de l'Eau et de l'Environnement",
+    period: "2023",
     location: "Daloa, Côte d'Ivoire",
-    description: [
-      "🌊 Eau & hydrologie : Hydrologie, mécanique des fluides, cycle hydrologique, eaux souterraines, captage et stockage",
-      "🚰 Eau potable & hydraulique : Alimentation en eau potable, réseaux d'eau, ouvrages hydrauliques, hydraulique agricole, irrigation, drainage",
-      "🚽 Assainissement : Assainissement, eaux pluviales, traitement des eaux usées, gestion des effluents, systèmes d'assainissement",
-      "♻️ Déchets & environnement : Pollution, gestion des déchets solides, hydrobiologie, développement durable, éducation environnementale, droit de l'environnement",
-      "🗺️ SIG, télédétection & analyse spatiale : SIG, télédétection, cartographie et analyse spatiale",
-      "📊 Statistiques, données & modélisation : Statistiques, analyses numériques, traitement et analyse des données, informatique appliquée",
-      "🔬 Recherche & méthodologie : Méthodologie scientifique, recherche documentaire, techniques de rédaction scientifique",
+    domains: [
+      {
+        title: "Eau & Hydrologie",
+        icon: "droplets",
+        courses: [
+          "Hydro-Géophysique",
+          "Climatologie et Météorologie",
+          "Gestion intégrée des ressources en eau",
+          "Modélisation des ressources en eau",
+        ],
+      },
+      {
+        title: "Eau potable & Hydraulique",
+        icon: "waves",
+        courses: [
+          "Traitement des Eaux",
+          "Aménagement et Restauration des Hydrosystèmes",
+          "Adduction en Eau Potable",
+          "Hydraulique Agricole",
+          "Érosion et Transport Solide",
+        ],
+      },
+      {
+        title: "Assainissement & Déchets",
+        icon: "recycle",
+        courses: [
+          "Assainissement",
+        ],
+      },
+      {
+        title: "Environnement & Qualité",
+        icon: "leaf",
+        courses: [
+          "Management de l’Environnement et Management de la Qualité",
+          "Économie et Sociologie de l’Environnement",
+        ],
+      },
+      {
+        title: "SIG, Télédétection & Cartographie",
+        icon: "map",
+        courses: [
+          "Télédétection et SIG",
+          "Fonctionnement des hydrosystèmes et Cartographie thématique",
+        ],
+      },
+      {
+        title: "Statistiques & Données",
+        icon: "chart",
+        courses: [
+          "Statistique et Analyse de Données",
+        ],
+      },
+      {
+        title: "Santé, Sécurité & QHSE",
+        icon: "shield",
+        courses: [
+          "Management de santé et de la sécurité / Audit et certification",
+        ],
+      },
+      {
+        title: "Recherche, Management & Communication",
+        icon: "book",
+        courses: [
+          "Géotechnique",
+          "Recherche Scientifique",
+          "Entrepreneuriat Création d’entreprise, Business plan et Étude de marché",
+          "Projet de Fin d’Étude",
+          "Anglais scientifique",
+          "UE Libre : Photographie",
+          "Natation",
+          "Stage de Fin d’Étude",
+        ],
+      },
     ],
   },
 ];

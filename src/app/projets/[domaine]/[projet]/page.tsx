@@ -140,15 +140,27 @@ export default async function ProjectPage({ params }: PageProps) {
         <p className="text-slate-600 dark:text-slate-300">
           Le README complet et les fichiers du projet sont sur GitHub.
         </p>
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center rounded-xl bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700"
-        >
-          Voir sur GitHub
-        </a>
+        <div className="mt-4 flex items-center justify-between gap-4">
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-xl bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700"
+          >
+            Voir sur GitHub
+          </a>
+
+          <Link
+            href={`/projets/${domain.slug}`}
+            className="inline-flex items-center rounded-xl border border-blue-600 px-5 py-2.5 font-medium text-blue-600 dark:text-blue-400 transition hover:bg-blue-50 dark:hover:bg-blue-950/40"
+          >
+            Retour aux projets {domain.title}
+          </Link>
+        </div>
       </section>
     </main>
   );
 }
+
+
+

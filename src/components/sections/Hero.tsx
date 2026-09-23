@@ -38,8 +38,6 @@ export default function Hero() {
 
           <a
             href={profile.cv}
-            target="_blank"
-            rel="noopener noreferrer"
             className="rounded-lg border border-blue-600 px-8 py-4 font-semibold text-blue-600 dark:text-blue-400 transition hover:bg-blue-50 dark:hover:bg-blue-950/40"
           >
             Télécharger mon CV
@@ -62,3 +60,4 @@ export default function Hero() {
     </section>
   );
 }
+
